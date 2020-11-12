@@ -18,6 +18,7 @@ Municipio VARCHAR (50),																	--Almacena el municipio donde vive la pe
 Departamento VARCHAR (50),																--Almacena el departamento que forma parte el municipio donde vive la persona en el expediente.
 --CONSTRAINT Expediente_Paciente UNIQUE (Cedula, Fecha_Nacimiento, Telefono_Celular)
 );
+GO
 -------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Receta (																	--Creación de la tabla Receta.
@@ -28,6 +29,7 @@ Cantidad VARCHAR (20),																	--Almacena cantidad de medicamentos.
 Descripcion VARCHAR (150),																--Almacena la indicación de la toma del medicamento.
 --CONSTRAINT Receta_Info UNIQUE (Nombre, Cantidad)
 );
+GO
 --------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Medico (																	--Creación de la tabla Médico
@@ -36,6 +38,7 @@ Nombre_Medico VARCHAR (30),																--Almacena el nombre del médico.
 Telefono_Celular VARCHAR (20),															--Almacena el número telefónico personal del médico.
 --CONSTRAINT Medico_Nombre UNIQUE (Telefono_Celular)
 );
+GO
 --------------------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE Consulta (																	--Creación de la tabla Consulta.
 IdConsulta INT PRIMARY KEY IDENTITY (1,1),												--Almacena código de consulta.
@@ -48,7 +51,7 @@ Nombres_Paciente VARCHAR (50),																	/*Almacena el código del expedie
 NombreMedico VARCHAR (50)																			/*Almacena el código del médico.*/
 --FOREIGN KEY (NombreMedico) REFERENCES Medico (NombreMedico),
 );
-
+GO
  ----------------------------------------------------------------PROCEDIMIENTO ALMACENADO------------------------------------------------------------------------------------
 
  --Se crea el procedimiento almacenado para la tabla Expediente
