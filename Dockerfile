@@ -2,4 +2,4 @@ FROM mcr.microsoft.com/mssql/server:2019-latest
 COPY ./freshdent.sql .
 ENV ACCEPT_EULA="Y"
 ENV SA_PASSWORD ="JesElk15*"
-RUN /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "${SA_PASSWORD}" -i freshdent.sql 
+RUN /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "${SA_PASSWORD}" -i freshdent.sql
