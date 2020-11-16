@@ -2,24 +2,23 @@
 													
 USE master
 GO
-											--GESTOR DE BASE DATOS = SQL SERVER 2014 MANAGEMENT STUDIO--
+											
 
-CREATE DATABASE FRESHDENT /*SE CREA LA BASE DE DATOS APLICANDO NOMBRE A ELLA*/
+CREATE DATABASE FRESHDENT 
 GO
 
-USE hola /*SE MANDA A LLAMAR EL NOMBRE DE LA BASE DE DATOS PARA GUARDAR LA CODIFICACIÓN QUE TENDRÁ PARA QUE MÁS ADELANTE UTILIZARLA PARA GUARDAR INFORMACIÓN POR OTROS MEDIOS PROGRAMATIVOS, EN ESTE CASO EL SISTEMA
-				QUE ESTÁ CREADO EN VISUAL STUDIO RELACIONADO A ODONTOLOGIA*/
+USE FRESHDENT 
 GO
 
-CREATE TABLE Expediente (																--Creación de la tabla Expediente.
-IdExpediente INT PRIMARY KEY IDENTITY (1,1),											--Almacena el código de expediente.
-Cedula VARCHAR (100),																	--Almacena la cédula de la persona en el expediente.
-Nombres VARCHAR (80),																	--Almacena los nombres de la persona en el expediente.
-Apellidos VARCHAR (80),																	--Almacena los apellidos de la persona en el expediente.
-Fecha_Nacimiento VARCHAR (30),															--Almacena la fecha de nacimiento de la persona en el expediente.
-Telefono_Celular VARCHAR (30),																	--Almacena el teléfono-celular de la persona en el expediente.
-Municipio VARCHAR (50),																	--Almacena el municipio donde vive la persona en el expediente. 
-Departamento VARCHAR (50),																--Almacena el departamento que forma parte el municipio donde vive la persona en el expediente.
+CREATE TABLE Expediente (																
+IdExpediente INT PRIMARY KEY IDENTITY (1,1),											
+Cedula VARCHAR (100),																	
+Nombres VARCHAR (80),																	
+Apellidos VARCHAR (80),																	
+Fecha_Nacimiento VARCHAR (30),															
+Telefono_Celular VARCHAR (30),																	
+Municipio VARCHAR (50),																	 
+Departamento VARCHAR (50),																
 CONSTRAINT Expediente_Paciente UNIQUE (Cedula, Fecha_Nacimiento, Telefono_Celular)
 );
 
@@ -83,7 +82,6 @@ FOREIGN KEY (IdReceta) REFERENCES Receta (IdReceta),
 
  --Se crea el procedimiento almacenado para la tabla Expediente
 CREATE PROCEDURE InsertExpediente
- @IdExpediente INT,
  @Cedula VARCHAR (100),
  @Nombres VARCHAR (80),																	
  @Apellidos VARCHAR (80),																	
@@ -98,7 +96,6 @@ AS
 		SET NOCOUNT ON;
 
 		INSERT INTO Expediente (
-		IdExpediente,
 		Cedula,	
 		Nombres,																														
 		Apellidos,															
@@ -107,7 +104,6 @@ AS
 		Municipio,															
 		Departamento
 		) VALUES (
-		@IdExpediente,
 		@Cedula,
 		@Nombres,
 		@Apellidos,
@@ -177,7 +173,6 @@ GO
 -----------------------------------------------------------------------------------------------------------------------
 --------- Se crea el procedimiento paa la tabla  Receta
 CREATE PROCEDURE InsertReceta
-	@IdReceta INT,
 	@Nombre varchar(50),
 	@Presentacion varchar(100),
 	@Cantidad varchar(20),
@@ -188,13 +183,11 @@ AS
 		SET NOCOUNT ON;
 
 	INSERT INTO Receta(
-	IdReceta,
 	Nombre,
 	Presentacion,
 	Cantidad,
-	Descripcion,
+	Descripcion
 	) VALUES (
-	@IdReceta,
 	@Nombre,
 	@Presentacion,
 	@Cantidad,
@@ -262,7 +255,8 @@ AS
 		DescpEspecialidad
 		) VALUES (
 		@NombreEspecialidad,
-		 @DescpEspecialidad)
+		 @DescpEspecialidad
+		 )
 	END 
 GO
 -------------------------------------------------------------------------------------------------------
@@ -312,7 +306,7 @@ GO
 CREATE PROCEDURE InsertMedico
 	 @NombreMedico VARCHAR (30), 
 	 @Telefono_Celular VARCHAR (20),
-	 @IdEspecialidad int
+	 @IdEspecialidad INT
 AS
 	BEGIN
 		SET NOCOUNT ON;
@@ -339,7 +333,7 @@ AS
 	END
 GO
 -------------------------------------------------------------------------------------------------------------
-CREATE PROCEDURE SelectMdicoAll
+CREATE PROCEDURE SelectMedicoAll
 AS
 	BEGIN
 		SET NOCOUNT ON;
@@ -352,7 +346,7 @@ CREATE PROCEDURE UpdateMedico
    @IdMedico INT,
    @NombreMedico VARCHAR (30), 
    @Telefono_Celular VARCHAR (20),
-   @IdEspedialidad int
+   @IdEspedialidad INT
 AS
 	BEGIN
 	    SET NOCOUNT ON;
@@ -371,8 +365,7 @@ AS
 GO
 -------------------------------------------------------------------------------------------------------------------------------------
 --Se crea el procedimiento almacenado para la tabla Consulta
-CREATE PROCEDURE InsertConsulta
-	@IdConsulta INT, 												
+CREATE PROCEDURE InsertConsulta				
     @Fecha VARCHAR(20),																				
     @Hora VARCHAR (20),																			
     @Sintoma VARCHAR (250),																	
@@ -384,7 +377,6 @@ AS
 		SET NOCOUNT ON;
 
 		INSERT INTO Consulta(
-		IdConsulta,
 		Fecha,
 		Hora,
 		Sintoma,
@@ -392,7 +384,6 @@ AS
 		IdExpediente,
 		IdMedico
 		) VALUES (
-		@IdConsulta,
 		@Fecha,
 		@Hora,
 		@Sintoma,
@@ -452,7 +443,6 @@ GO
 ----------------------------------------------------------------------------------------------------------------
 --Se crea el procedimiento almacenado para la tabla Cita
 CREATE PROCEDURE InsertCita
-	@IdCita INT,
 	@FechaCita VARCHAR (30),																		
 	@HoraDisponible VARCHAR (30),																	
 	@Precio VARCHAR (20),
@@ -464,7 +454,6 @@ AS
 		SET NOCOUNT ON;
 
 		INSERT INTO Cita(
-		IdCita,
 		FechaCita,
 		HoraDisponible,
 		Precio,
@@ -472,7 +461,6 @@ AS
 		IdExpediente, 
 	    IdMedico 
 		) VALUES (
-		@IdCita,
 		@FechaCita,
 		@HoraDisponible, 
 		@Precio, 
