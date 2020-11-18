@@ -2,10 +2,10 @@ USE master
 GO
 											
 
-CREATE DATABASE hola 
+CREATE DATABASE freshdent 
 GO
 
-USE hola 
+USE freshdent 
 GO
 
 CREATE TABLE Expediente (																
@@ -20,64 +20,64 @@ Departamento VARCHAR (50),
 CONSTRAINT Expediente_Paciente UNIQUE (Cedula, Fecha_Nacimiento, Telefono_Celular)
 );
 
-CREATE TABLE Receta (																	--CreaciÛn de la tabla Receta.
-IdReceta INT PRIMARY KEY IDENTITY (1,1),												--Almacena cÛdigo de receta mÈdica.
+CREATE TABLE Receta (																	--Creaci√≥n de la tabla Receta.
+IdReceta INT PRIMARY KEY IDENTITY (1,1),												--Almacena c√≥digo de receta m√©dica.
 Nombre VARCHAR (50),																	--Almacena el nombre de lo medicamento.
-Presentacion VARCHAR (100),																--Almacena la informaciÛn del medicamento.
+Presentacion VARCHAR (100),																--Almacena la informaci√≥n del medicamento.
 Cantidad VARCHAR (20),																			--Almacena cantidad de medicamentos.
-Descripcion VARCHAR (150),																--Almacena la indicaciÛn de la toma del medicamento.
+Descripcion VARCHAR (150),																--Almacena la indicaci√≥n de la toma del medicamento.
 CONSTRAINT Receta_Info UNIQUE (Nombre, Cantidad)
 );
 
-CREATE TABLE Especialidad (																--CreaciÛn de la tabla Especialidad.
-IdEspecialidad INT PRIMARY KEY IDENTITY (1,1),											--Almacena cÛdigo de especialidad.
+CREATE TABLE Especialidad (																--Creaci√≥n de la tabla Especialidad.
+IdEspecialidad INT PRIMARY KEY IDENTITY (1,1),											--Almacena c√≥digo de especialidad.
 NombreEspecialidad VARCHAR (50),														--Almacena nombre de especialidad.
-DescpEspecialidad VARCHAR (500),														--Almacena descripciÛn de especialidad.
+DescpEspecialidad VARCHAR (500),														--Almacena descripci√≥n de especialidad.
 CONSTRAINT Especialista UNIQUE (NombreEspecialidad, DescpEspecialidad)
 );
 
-CREATE TABLE Medico (																	--CreaciÛn de la tabla MÈdico
-IdMedico INT PRIMARY KEY IDENTITY (1,1),												--Almacena el cÛdigo del mÈdico.
-NombreMedico VARCHAR (30),																--Almacena el nombre del mÈdico.
+CREATE TABLE Medico (																	--Creaci√≥n de la tabla M√©dico
+IdMedico INT PRIMARY KEY IDENTITY (1,1),												--Almacena el c√≥digo del m√©dico.
+NombreMedico VARCHAR (30),																--Almacena el nombre del m√©dico.
 Telefono_Celular VARCHAR (20),
-NombreEspecialidad varchar (50),																--Almacena el n˙mero telefÛnico personal del mÈdico.
-IdEspecialidad INT																		/*Almacena el cÛdigo de la especialidad.*/
+NombreEspecialidad varchar (50),																--Almacena el n√∫mero telef√≥nico personal del m√©dico.
+IdEspecialidad INT																		/*Almacena el c√≥digo de la especialidad.*/
 FOREIGN KEY (IdEspecialidad) REFERENCES Especialidad (IdEspecialidad),
 CONSTRAINT Medico_Nombre UNIQUE (Telefono_Celular)
 );
 
-CREATE TABLE Cita (																		--CreaciÛn de la tabla Cita.
-IdCita INT PRIMARY KEY IDENTITY (1,1),													--Almacena cÛdigo de la cita.
+CREATE TABLE Cita (																		--Creaci√≥n de la tabla Cita.
+IdCita INT PRIMARY KEY IDENTITY (1,1),													--Almacena c√≥digo de la cita.
 FechaCita VARCHAR (30),																		--Almacena fecha de cita.
 HoraDisponible VARCHAR (30),																	--Almacena hora disponible de la cita.
 Precio VARCHAR (20),																			--Almacena costo de la cita.
 Tipo VARCHAR (50),
-Nombres VARCHAR (80),																		--Almacena el tipo de cita, es decir si est· programada o no.
-IdExpediente INT																		/*Almacena el cÛdigo del expediente.*/
+Nombres VARCHAR (80),																		--Almacena el tipo de cita, es decir si est√° programada o no.
+IdExpediente INT																		/*Almacena el c√≥digo del expediente.*/
 FOREIGN KEY (IdExpediente) REFERENCES Expediente (IdExpediente),
 NombreMedico VARCHAR (30),	
-IdMedico INT																			/*Almacena el cÛdigo del mÈdico.*/
+IdMedico INT																			/*Almacena el c√≥digo del m√©dico.*/
 FOREIGN KEY (IdMedico) REFERENCES Medico (IdMedico)
 );
 
-CREATE TABLE Consulta (																	--CreaciÛn de la tabla Consulta.
-IdConsulta INT PRIMARY KEY IDENTITY (1,1),												--Almacena cÛdigo de consulta.
-Fecha VARCHAR(20),																				--Almacena la fecha que se est· realizando la consulta.
-Hora VARCHAR (20),																			--Almacena la hora que se est· realizando la consulta.
-Sintoma VARCHAR (250),																	--Almacena los sÌntomas mencionada por la persona que est· en consulta.
+CREATE TABLE Consulta (																	--Creaci√≥n de la tabla Consulta.
+IdConsulta INT PRIMARY KEY IDENTITY (1,1),												--Almacena c√≥digo de consulta.
+Fecha VARCHAR(20),																				--Almacena la fecha que se est√° realizando la consulta.
+Hora VARCHAR (20),																			--Almacena la hora que se est√° realizando la consulta.
+Sintoma VARCHAR (250),																	--Almacena los s√≠ntomas mencionada por la persona que est√° en consulta.
 Diagnostico VARCHAR (200),	
-Nombres VARCHAR (80),												--Almacena el diagnÛstico que determina el medico.
-IdExpediente INT,																		/*Almacena el cÛdigo del expediente.*/
+Nombres VARCHAR (80),												--Almacena el diagn√≥stico que determina el medico.
+IdExpediente INT,																		/*Almacena el c√≥digo del expediente.*/
 FOREIGN KEY (IdExpediente) REFERENCES Expediente (IdExpediente),
 NombreMedico VARCHAR (30),
-IdMedico INT																			/*Almacena el cÛdigo del mÈdico.*/
+IdMedico INT																			/*Almacena el c√≥digo del m√©dico.*/
 FOREIGN KEY (IdMedico) REFERENCES Medico (IdMedico),
 );
 
 CREATE TABLE Consulta_Receta(
-IdConsulta INT																			/*Almacena cÛdigo de consulta.*/
+IdConsulta INT																			/*Almacena c√≥digo de consulta.*/
 FOREIGN KEY (IdConsulta) REFERENCES Consulta (IdConsulta),
-IdReceta INT																			/*Almacena cÛdigo de receta mÈdica.*/
+IdReceta INT																			/*Almacena c√≥digo de receta m√©dica.*/
 FOREIGN KEY (IdReceta) REFERENCES Receta (IdReceta),
 );
 
@@ -305,7 +305,7 @@ AS
 	END
 GO
 --------------------------------------------------------------------------------------------------------------------------
---Se crea el procedimiento almacenado para la tabla MÈdico
+--Se crea el procedimiento almacenado para la tabla M√©dico
 CREATE PROCEDURE InsertMedico
 	 @NombreMedico VARCHAR (30), 
 	 @Telefono_Celular VARCHAR (20),
