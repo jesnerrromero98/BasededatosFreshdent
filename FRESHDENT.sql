@@ -2,10 +2,10 @@ USE master
 GO
 											
 
-CREATE DATABASE freshdent 
+CREATE DATABASE hola 
 GO
 
-USE freshdent 
+USE hola 
 GO
 
 CREATE TABLE Expediente (																
