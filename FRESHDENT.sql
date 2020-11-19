@@ -1,83 +1,81 @@
+
+													
 USE master
 GO
-											
+											--GESTOR DE BASE DATOS = SQL SERVER 2014 MANAGEMENT STUDIO--
 
-CREATE DATABASE hola 
+CREATE DATABASE FRESHDENT /*SE CREA LA BASE DE DATOS APLICANDO NOMBRE A ELLA*/
 GO
 
-USE hola 
+USE FRESHDENT /*SE MANDA A LLAMAR EL NOMBRE DE LA BASE DE DATOS PARA GUARDAR LA CODIFICACIÓN QUE TENDRÁ PARA QUE MÁS ADELANTE UTILIZARLA PARA GUARDAR INFORMACIÓN POR OTROS MEDIOS PROGRAMATIVOS, EN ESTE CASO EL SISTEMA
+				QUE ESTÁ CREADO EN VISUAL STUDIO RELACIONADO A ODONTOLOGIA*/
 GO
 
-CREATE TABLE Expediente (																
-IdExpediente INT PRIMARY KEY IDENTITY (1,1),											
-Cedula VARCHAR (100),																	
-Nombres VARCHAR (80),																	
-Apellidos VARCHAR (80),																	
-Fecha_Nacimiento VARCHAR (30),															
-Telefono_Celular VARCHAR (30),																	
-Municipio VARCHAR (50),																	 
-Departamento VARCHAR (50),																
+CREATE TABLE Expediente (																--Creación de la tabla Expediente.
+IdExpediente INT PRIMARY KEY IDENTITY (1,1),											--Almacena el código de expediente.
+Cedula VARCHAR (100),																	--Almacena la cédula de la persona en el expediente.
+Nombres VARCHAR (80),																	--Almacena los nombres de la persona en el expediente.
+Apellidos VARCHAR (80),																	--Almacena los apellidos de la persona en el expediente.
+Fecha_Nacimiento VARCHAR (30),															--Almacena la fecha de nacimiento de la persona en el expediente.
+Telefono_Celular VARCHAR (30),																	--Almacena el teléfono-celular de la persona en el expediente.
+Municipio VARCHAR (50),																	--Almacena el municipio donde vive la persona en el expediente. 
+Departamento VARCHAR (50),																--Almacena el departamento que forma parte el municipio donde vive la persona en el expediente.
 CONSTRAINT Expediente_Paciente UNIQUE (Cedula, Fecha_Nacimiento, Telefono_Celular)
 );
 
-CREATE TABLE Receta (																	--CreaciÃ³n de la tabla Receta.
-IdReceta INT PRIMARY KEY IDENTITY (1,1),												--Almacena cÃ³digo de receta mÃ©dica.
+CREATE TABLE Receta (																	--Creación de la tabla Receta.
+IdReceta INT PRIMARY KEY IDENTITY (1,1),												--Almacena código de receta médica.
 Nombre VARCHAR (50),																	--Almacena el nombre de lo medicamento.
-Presentacion VARCHAR (100),																--Almacena la informaciÃ³n del medicamento.
+Presentacion VARCHAR (100),																--Almacena la información del medicamento.
 Cantidad VARCHAR (20),																			--Almacena cantidad de medicamentos.
-Descripcion VARCHAR (150),																--Almacena la indicaciÃ³n de la toma del medicamento.
+Descripcion VARCHAR (150),																--Almacena la indicación de la toma del medicamento.
 CONSTRAINT Receta_Info UNIQUE (Nombre, Cantidad)
 );
 
-CREATE TABLE Especialidad (																--CreaciÃ³n de la tabla Especialidad.
-IdEspecialidad INT PRIMARY KEY IDENTITY (1,1),											--Almacena cÃ³digo de especialidad.
+CREATE TABLE Especialidad (																--Creación de la tabla Especialidad.
+IdEspecialidad INT PRIMARY KEY IDENTITY (1,1),											--Almacena código de especialidad.
 NombreEspecialidad VARCHAR (50),														--Almacena nombre de especialidad.
-DescpEspecialidad VARCHAR (500),														--Almacena descripciÃ³n de especialidad.
+DescpEspecialidad VARCHAR (500),														--Almacena descripción de especialidad.
 CONSTRAINT Especialista UNIQUE (NombreEspecialidad, DescpEspecialidad)
 );
 
-CREATE TABLE Medico (																	--CreaciÃ³n de la tabla MÃ©dico
-IdMedico INT PRIMARY KEY IDENTITY (1,1),												--Almacena el cÃ³digo del mÃ©dico.
-NombreMedico VARCHAR (30),																--Almacena el nombre del mÃ©dico.
-Telefono_Celular VARCHAR (20),
-NombreEspecialidad varchar (50),																--Almacena el nÃºmero telefÃ³nico personal del mÃ©dico.
-IdEspecialidad INT																		/*Almacena el cÃ³digo de la especialidad.*/
+CREATE TABLE Medico (																	--Creación de la tabla Médico
+IdMedico INT PRIMARY KEY IDENTITY (1,1),												--Almacena el código del médico.
+NombreMedico VARCHAR (30),																--Almacena el nombre del médico.
+Telefono_Celular VARCHAR (20),																	--Almacena el número telefónico personal del médico.
+IdEspecialidad INT																		/*Almacena el código de la especialidad.*/
 FOREIGN KEY (IdEspecialidad) REFERENCES Especialidad (IdEspecialidad),
 CONSTRAINT Medico_Nombre UNIQUE (Telefono_Celular)
 );
 
-CREATE TABLE Cita (																		--CreaciÃ³n de la tabla Cita.
-IdCita INT PRIMARY KEY IDENTITY (1,1),													--Almacena cÃ³digo de la cita.
+CREATE TABLE Cita (																		--Creación de la tabla Cita.
+IdCita INT PRIMARY KEY IDENTITY (1,1),													--Almacena código de la cita.
 FechaCita VARCHAR (30),																		--Almacena fecha de cita.
 HoraDisponible VARCHAR (30),																	--Almacena hora disponible de la cita.
 Precio VARCHAR (20),																			--Almacena costo de la cita.
-Tipo VARCHAR (50),
-Nombres VARCHAR (80),																		--Almacena el tipo de cita, es decir si estÃ¡ programada o no.
-IdExpediente INT																		/*Almacena el cÃ³digo del expediente.*/
+Tipo VARCHAR (50),																		--Almacena el tipo de cita, es decir si está programada o no.
+IdExpediente INT																		/*Almacena el código del expediente.*/
 FOREIGN KEY (IdExpediente) REFERENCES Expediente (IdExpediente),
-NombreMedico VARCHAR (30),	
-IdMedico INT																			/*Almacena el cÃ³digo del mÃ©dico.*/
+IdMedico INT																			/*Almacena el código del médico.*/
 FOREIGN KEY (IdMedico) REFERENCES Medico (IdMedico)
 );
 
-CREATE TABLE Consulta (																	--CreaciÃ³n de la tabla Consulta.
-IdConsulta INT PRIMARY KEY IDENTITY (1,1),												--Almacena cÃ³digo de consulta.
-Fecha VARCHAR(20),																				--Almacena la fecha que se estÃ¡ realizando la consulta.
-Hora VARCHAR (20),																			--Almacena la hora que se estÃ¡ realizando la consulta.
-Sintoma VARCHAR (250),																	--Almacena los sÃ­ntomas mencionada por la persona que estÃ¡ en consulta.
-Diagnostico VARCHAR (200),	
-Nombres VARCHAR (80),												--Almacena el diagnÃ³stico que determina el medico.
-IdExpediente INT,																		/*Almacena el cÃ³digo del expediente.*/
+CREATE TABLE Consulta (																	--Creación de la tabla Consulta.
+IdConsulta INT PRIMARY KEY IDENTITY (1,1),												--Almacena código de consulta.
+Fecha VARCHAR(20),																				--Almacena la fecha que se está realizando la consulta.
+Hora VARCHAR (20),																			--Almacena la hora que se está realizando la consulta.
+Sintoma VARCHAR (250),																	--Almacena los síntomas mencionada por la persona que está en consulta.
+Diagnostico VARCHAR (200),																--Almacena el diagnóstico que determina el medico.
+IdExpediente INT																		/*Almacena el código del expediente.*/
 FOREIGN KEY (IdExpediente) REFERENCES Expediente (IdExpediente),
-NombreMedico VARCHAR (30),
-IdMedico INT																			/*Almacena el cÃ³digo del mÃ©dico.*/
+IdMedico INT																			/*Almacena el código del médico.*/
 FOREIGN KEY (IdMedico) REFERENCES Medico (IdMedico),
 );
 
 CREATE TABLE Consulta_Receta(
-IdConsulta INT																			/*Almacena cÃ³digo de consulta.*/
+IdConsulta INT																			/*Almacena código de consulta.*/
 FOREIGN KEY (IdConsulta) REFERENCES Consulta (IdConsulta),
-IdReceta INT																			/*Almacena cÃ³digo de receta mÃ©dica.*/
+IdReceta INT																			/*Almacena código de receta médica.*/
 FOREIGN KEY (IdReceta) REFERENCES Receta (IdReceta),
 );
 
@@ -225,7 +223,6 @@ CREATE PROCEDURE UpdateReceta
 	@Presentacion varchar(100),
 	@Cantidad varchar(20),
 	@Descripcion varchar(150)
-
 AS
 	BEGIN
 		SET NOCOUNT ON;
@@ -258,8 +255,7 @@ AS
 		DescpEspecialidad
 		) VALUES (
 		@NombreEspecialidad,
-		 @DescpEspecialidad
-		 )
+		 @DescpEspecialidad)
 	END 
 GO
 -------------------------------------------------------------------------------------------------------
@@ -305,12 +301,11 @@ AS
 	END
 GO
 --------------------------------------------------------------------------------------------------------------------------
---Se crea el procedimiento almacenado para la tabla MÃ©dico
+--Se crea el procedimiento almacenado para la tabla Médico
 CREATE PROCEDURE InsertMedico
 	 @NombreMedico VARCHAR (30), 
 	 @Telefono_Celular VARCHAR (20),
-	 @IdEspecialidad INT,
-	 @NombreEspecialidad varchar (50)
+	 @IdEspecialidad INT
 AS
 	BEGIN
 		SET NOCOUNT ON;
@@ -318,13 +313,11 @@ AS
 		INSERT INTO Medico(
 		NombreMedico,
 		Telefono_Celular,
-		IdEspecialidad,
-		NombreEspecialidad
+		IdEspecialidad
 		) VALUES (
 		@NombreMedico, 
 		@Telefono_Celular,
-		@IdEspecialidad,
-		@NombreEspecialidad
+		@IdEspecialidad
 		)
 	END
 GO
@@ -339,28 +332,26 @@ AS
 	END
 GO
 -------------------------------------------------------------------------------------------------------------
-create PROCEDURE SelectMedicoAll
+CREATE PROCEDURE SelectMdicoAll
 AS
 	BEGIN
 		SET NOCOUNT ON;
-		SELECT M.IdMedico,M.NombreMedico, M.Telefono_Celular,E.IdEspecialidad,E.NombreEspecialidad
-				FROM Medico AS M INNER JOIN Especialidad AS E
-				ON M.IdEspecialidad = E.IdEspecialidad
+
+		SELECT M.IdMedico, M.NombreMedico, M.Telefono_Celular, E.IdEspecialidad, E.NombreEspecialidad 
+		FROM Medico AS M INNER JOIN Especialidad AS E ON M.IdEspecialidad = E.IdEspecialidad
 	END
 GO
-select * from medico
 --------------------------------------------------------------------------------------------------------------------------
 CREATE PROCEDURE UpdateMedico
    @IdMedico INT,
    @NombreMedico VARCHAR (30), 
    @Telefono_Celular VARCHAR (20),
-   @IdEspecialidad INT,
-   @NombreEspecialidad varchar(50)
+   @IdEspecialidad INT
 AS
 	BEGIN
 	    SET NOCOUNT ON;
 
-	UPDATE Medico SET NombreMedico = @NombreMedico, Telefono_Celular = @Telefono_Celular,IdEspecialidad=IdEspecialidad,@NombreEspecialidad=NombreEspecialidad where @IdMedico=IdMedico
+	UPDATE Medico SET NombreMedico = @NombreMedico, Telefono_Celular = @Telefono_Celular, IdEspecialidad = @IdEspecialidad WHERE IdMedico = @IdMedico
 	END
 GO
 ------------------------------------------------------------------------------------------------------------
@@ -374,15 +365,13 @@ AS
 GO
 -------------------------------------------------------------------------------------------------------------------------------------
 --Se crea el procedimiento almacenado para la tabla Consulta
-CREATE PROCEDURE InsertConsulta				
+CREATE PROCEDURE InsertConsulta												
     @Fecha VARCHAR(20),																				
     @Hora VARCHAR (20),																			
     @Sintoma VARCHAR (250),																	
     @Diagnostico VARCHAR (200),															
-    @IdExpediente INT, 
-	@IdMedico	 int,
-	@Nombres VARCHAR (80),	
-    @NombreMedico VARCHAR (30)
+    @IdExpediente INT,
+	@IdMedico INT	
 AS
 	BEGIN 
 		SET NOCOUNT ON;
@@ -393,19 +382,14 @@ AS
 		Sintoma,
 		Diagnostico,
 		IdExpediente,
-		IdMedico,
-		Nombres,
-        NombreMedico 
-
+		IdMedico
 		) VALUES (
 		@Fecha,
 		@Hora,
 		@Sintoma,
 		@Diagnostico,
 		@IdExpediente,
-		@IdMedico,
-		@Nombres,	
-        @NombreMedico
+		@IdMedico
 		)
 	END
 GO
@@ -416,11 +400,8 @@ AS
 	BEGIN 
 			SET NOCOUNT ON;
 			
-			SELECT c.IdConsulta,c.Fecha,c.Hora,c.Sintoma,c.Diagnostico,m.IdMedico,M.NombreMedico,X.IdExpediente,X.Nombres
-				FROM Medico AS M INNER JOIN Consulta AS c
-				ON M.IdMedico =c.IdMedico  inner join Expediente as X on X.IdExpediente=C.IdExpediente  
+			SELECT * FROM Consulta WHERE IdConsulta = @IdConsulta
 	END
-	select *from Medico
 GO
 --------------------------------------------------------------------------------------------------------------------
 CREATE PROCEDURE SelectConsultaAll
@@ -428,7 +409,8 @@ CREATE PROCEDURE SelectConsultaAll
 	BEGIN
 		SET NOCOUNT ON;
 
-		SELECT * FROM Consulta
+		SELECT C.IdConsulta, C.Fecha, C.Hora, C.Sintoma,C.Diagnostico, M.IdMedico, M.NombreMedico, E.IdExpediente, E.Nombres 
+		FROM Consulta AS C INNER JOIN Medico AS M ON M.IdMedico = C.IdMedico INNER JOIN Expediente AS E ON E.IdExpediente = C.IdExpediente
 	END
 GO
 --------------------------------------------------------------------------------------------------------------------
@@ -438,16 +420,14 @@ CREATE PROCEDURE UpdateConsulta
     @Hora VARCHAR (20),																			
     @Sintoma VARCHAR (250),																	
     @Diagnostico VARCHAR (200),															
-    @IdExpediente INT ,
-	@IdMedico int,
-	@Nombres VARCHAR (80),	
-    @NombreMedico VARCHAR (30)
-	as
+    @IdExpediente INT,
+	@IdMedico INT 
+AS
 	BEGIN
 		SET NOCOUNT ON;
 
 		UPDATE Consulta SET Fecha = @Fecha, Hora = @Hora , Sintoma = @Sintoma, Diagnostico = @Diagnostico,
-		IdExpediente = @IdExpediente, Nombres = @Nombres, IdMedico=@IdMedico, NombreMedico = @NombreMedico WHERE IdConsulta = @IdConsulta
+		IdExpediente = @IdExpediente, IdMedico = @IdMedico WHERE IdConsulta = @IdConsulta
 	END
 GO
 --------------------------------------------------------------------------------------------------------------
@@ -467,11 +447,9 @@ CREATE PROCEDURE InsertCita
 	@FechaCita VARCHAR (30),																		
 	@HoraDisponible VARCHAR (30),																	
 	@Precio VARCHAR (20),
-	@Tipo VARCHAR (50)	,
-	@IdExpediente int, 
-	@IdMedico int,
-    @Nombres VARCHAR (80),	
-    @NombreMedico VARCHAR (30)															
+	@Tipo VARCHAR (50),
+	@IdExpediente INT,
+	@IdMedico INT																		
 AS
 	BEGIN
 		SET NOCOUNT ON;
@@ -481,20 +459,15 @@ AS
 		HoraDisponible,
 		Precio,
 		Tipo,
-		IdExpediente, 
-	    IdMedico,
-		Nombres,	
-        NombreMedico
-
+		IdExpediente,
+		IdMedico
 		) VALUES (
 		@FechaCita,
 		@HoraDisponible, 
 		@Precio, 
 		@Tipo,
-		@IdExpediente, 
-	    @IdMedico,
-		@Nombres,	
-		@NombreMedico
+		@IdExpediente,
+		@IdMedico
 		)
 	END
 GO
@@ -514,11 +487,9 @@ AS
 	BEGIN
 		SET NOCOUNT ON;
 
-		SELECT c.IdCita,c.FechaCita,c.Tipo,c.Precio,c.HoraDisponible,m.IdMedico,M.NombreMedico,X.IdExpediente,X.Nombres
-				FROM Medico AS M INNER JOIN cita AS c
-				ON M.IdMedico =c.IdMedico  inner join Expediente as X on X.IdExpediente=C.IdExpediente
+		SELECT Ct.IdCita, Ct.FechaCita, Ct.HoraDisponible, Ct.Precio, Ct.Tipo, M.IdMedico, M.NombreMedico, E.IdExpediente, E.Nombres 
+		FROM Cita AS Ct INNER JOIN Medico AS M ON M.IdMedico = Ct.IdMedico INNER JOIN Expediente AS E ON E.IdExpediente = Ct.IdExpediente
 	END
-	Select* from Expediente
 GO
 ----------------------------------------------------------------------------------------------------------
 CREATE PROCEDURE UpdateCita
@@ -528,15 +499,13 @@ CREATE PROCEDURE UpdateCita
 	@Precio VARCHAR (20),
 	@Tipo VARCHAR (50),
 	@IdExpediente INT,
-	@IdMedico INT,
-	@Nombres VARCHAR (80),	
-    @NombreMedico VARCHAR (30)	
+	@IdMedico INT	
 AS
 	BEGIN
 		SET NOCOUNT ON;
 
 		UPDATE Cita SET FechaCita = @FechaCita, HoraDisponible = @HoraDisponible, Precio = @Precio, Tipo = @Tipo, IdExpediente = @IdExpediente, 
-		Nombres = @Nombres, NombreMedico = @NombreMedico,IdMedico = @IdMedico WHERE IdCita = @IdCita 
+		IdMedico = @IdMedico WHERE IdCita = @IdCita 
 	END
 GO
 --------------------------------------------------------------------------------------------------------------
