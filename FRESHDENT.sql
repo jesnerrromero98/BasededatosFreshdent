@@ -22,6 +22,7 @@ Municipio VARCHAR (50),																	--Almacena el municipio donde vive la pe
 Departamento VARCHAR (50),																--Almacena el departamento que forma parte el municipio donde vive la persona en el expediente.
 CONSTRAINT Expediente_Paciente UNIQUE (Cedula, Fecha_Nacimiento, Telefono_Celular)
 );
+GO
 
 CREATE TABLE Receta (																	--Creación de la tabla Receta.
 IdReceta INT PRIMARY KEY IDENTITY (1,1),												--Almacena código de receta médica.
@@ -31,6 +32,7 @@ Cantidad VARCHAR (20),																			--Almacena cantidad de medicamentos.
 Descripcion VARCHAR (150),																--Almacena la indicación de la toma del medicamento.
 CONSTRAINT Receta_Info UNIQUE (Nombre, Cantidad)
 );
+GO
 
 CREATE TABLE Especialidad (																--Creación de la tabla Especialidad.
 IdEspecialidad INT PRIMARY KEY IDENTITY (1,1),											--Almacena código de especialidad.
@@ -38,6 +40,7 @@ NombreEspecialidad VARCHAR (50),														--Almacena nombre de especialidad.
 DescpEspecialidad VARCHAR (500),														--Almacena descripción de especialidad.
 CONSTRAINT Especialista UNIQUE (NombreEspecialidad, DescpEspecialidad)
 );
+GO
 
 CREATE TABLE Medico (																	--Creación de la tabla Médico
 IdMedico INT PRIMARY KEY IDENTITY (1,1),												--Almacena el código del médico.
@@ -47,6 +50,7 @@ IdEspecialidad INT																		/*Almacena el código de la especialidad.*/
 FOREIGN KEY (IdEspecialidad) REFERENCES Especialidad (IdEspecialidad),
 CONSTRAINT Medico_Nombre UNIQUE (Telefono_Celular)
 );
+GO
 
 CREATE TABLE Cita (																		--Creación de la tabla Cita.
 IdCita INT PRIMARY KEY IDENTITY (1,1),													--Almacena código de la cita.
@@ -59,6 +63,7 @@ FOREIGN KEY (IdExpediente) REFERENCES Expediente (IdExpediente),
 IdMedico INT																			/*Almacena el código del médico.*/
 FOREIGN KEY (IdMedico) REFERENCES Medico (IdMedico)
 );
+GO
 
 CREATE TABLE Consulta (																	--Creación de la tabla Consulta.
 IdConsulta INT PRIMARY KEY IDENTITY (1,1),												--Almacena código de consulta.
@@ -71,6 +76,7 @@ FOREIGN KEY (IdExpediente) REFERENCES Expediente (IdExpediente),
 IdMedico INT																			/*Almacena el código del médico.*/
 FOREIGN KEY (IdMedico) REFERENCES Medico (IdMedico),
 );
+GO
 
 CREATE TABLE Consulta_Receta(
 IdConsulta INT																			/*Almacena código de consulta.*/
@@ -78,6 +84,7 @@ FOREIGN KEY (IdConsulta) REFERENCES Consulta (IdConsulta),
 IdReceta INT																			/*Almacena código de receta médica.*/
 FOREIGN KEY (IdReceta) REFERENCES Receta (IdReceta),
 );
+GO
 
  ----------------------------------------------------------------PROCEDIMIENTO ALMACENADO------------------------------------------------------------------------------------
 
